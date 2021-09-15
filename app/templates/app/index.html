@@ -28,10 +28,10 @@
       <form method="post" enctype="multipart/form-data" oninput="precisionvalue.value = precision.valueAsNumber">
         {% csrf_token %}
         {{ form.non_field_errors }}
-        {% render_field form.image.label %}
+        {{ form.image.label }}
         {{ form.image.errors }}
         {% render_field form.image class+="form-control" %}
-        <span class="">{% render_field form.color.label %}</span>
+        {{ form.color.label }}
         {{ form.color.errors }}
         {% render_field form.color class+="form-control" %}
         <div class="form-group">
@@ -50,7 +50,7 @@
     <img src="{{img_orig}}" height="280">
     <img src="{{img_masked}}" height="280">
     <br><br>
-    <p>*Any popular image format is allowed. <span style="font-weight:bold">Only exact RGB color match is detected if you specify precision=100.</span> There are 24 bits used to specify a web color within the sRGB gamut, and 16,777,216 colors that may be so specified. If you’re creating image with Gimp or Paint use PNG because it’s lossless.</p>
+    <p>*Any popular image format is allowed. <span style="font-weight:bold">Only exact RGB color match is detected if you specify precision=100.</span> Precision=0 is equivalent to an error of 20 out of 255 for each RGB component. There are 24 bits used to specify a web color within the sRGB gamut, and 16,777,216 colors that may be so specified.</p>
     {% endif %}
   </div>
   <footer class="footer">

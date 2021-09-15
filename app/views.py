@@ -9,7 +9,8 @@ def index(request):
         if form.is_valid():
             img_orig_b = form.cleaned_data['image'].read()
             color = form.cleaned_data['color']
-            img_masked_b, counts = process_image(img_orig_b, color)
+            precision = int(form.cleaned_data['precision'])
+            img_masked_b, counts = process_image(img_orig_b, color, precision)
             form = ImgUploadForm()
             context = {'img_orig': img_to_datauri(img_orig_b),
                        'img_masked': img_to_datauri(img_masked_b),

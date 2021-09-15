@@ -3,17 +3,23 @@ from io import BytesIO
 from base64 import b64encode
 
 
-def process_image(img_b, color_hex=None):
+def process_image(img_b, color_hex=None, precision=80):
     """Counts black, white, and specified color pixels and mask them on the image.
     Args:
         img_b (bytes): image to process
-        hex_color (str): color in hex format
+        color_hex (str): color in hex format
+        precision (int): color comparison precision
     Returns:
         bytes: processed image with masked pixels,
         dict: {'blacks': str,
                'whites': str,
                'colored': str}
     """
+    MAX_ERROR = 20
+    MAX_PRECISION = 100
+
+    error = (MAX_PRECISION - precision) * MAX_ERROR / 100
+
     black_rgb = (0, 0, 0)
     white_rgb = (255, 255, 255)
 
@@ -34,18 +40,22 @@ def process_image(img_b, color_hex=None):
     # Count and mask
     for y in range(height):
         for x in range(width):
-            if color_hex and pixdata[x, y] == color_rgb:
+            if color_hex and \
+                 (abs(pixdata[x, y][0] - color_rgb[0]) <= error and
+                  abs(pixdata[x, y][1] - color_rgb[1]) <= error and
+                  abs(pixdata[x, y][2] - color_rgb[2]) <= error):
                 pixdata[x, y] = green_rgb
                 colored += 1
-            elif pixdata[x, y] == black_rgb:
+            elif (abs(pixdata[x, y][0] - black_rgb[0]) <= error and
+                  abs(pixdata[x, y][1] - black_rgb[1]) <= error and
+                  abs(pixdata[x, y][2] - black_rgb[2]) <= error):
                 pixdata[x, y] = red_rgb
                 blacks += 1
-            elif pixdata[x, y] == white_rgb:
+            elif (abs(pixdata[x, y][0] - white_rgb[0]) <= error and
+                  abs(pixdata[x, y][1] - white_rgb[1]) <= error and
+                  abs(pixdata[x, y][2] - white_rgb[2]) <= error):
                 pixdata[x, y] = blue_rgb
                 whites += 1
-
-    # Debug:
-    # img.save('debug.jpg')
 
     img_io = BytesIO()
     img.save(img_io, format='PNG')
@@ -60,7 +70,12 @@ def process_image(img_b, color_hex=None):
 
 
 def img_to_datauri(img):
-
+    """Convert image to data URI ACSII text
+    Args:
+        img (bytes): image
+    Returns:
+        str: data: URI - data:image/jpeg;base64
+    """
     # b64encode - Encode the bytes-like objects and return the encoded bytes
     # bytes.decode(encoding="utf-8") - Return a string
     data = b64encode(img).decode()
