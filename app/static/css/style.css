@@ -7,3 +7,23 @@ body {
     background: linear-gradient(0deg, rgba(168,255,120,1) 0%, rgba(120,255,214,1) 100%);
     margin-bottom: 4rem;
 }
+h3 {
+    padding-top: 1rem;
+}
+.inputform {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    max-width: 230px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding-bottom: 0.5rem;
+}
+.madeby {
+    font-family: 'Krona One', sans-serif;
+    font-size: 0.9rem;
+}

@@ -24,16 +24,26 @@
   <div class="container">
     <h3>Let's count pixels</h3>
     <div class="text-center inputform">
+      {% load widget_tweaks %}
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.image }}
-        {{ form.color }}
+        {{ form.non_field_errors }}
+        {% render_field form.image.label %}
+        {{ form.image.errors }}
+        {% render_field form.image class+="form-control" %}
+        <span class="">{% render_field form.color.label %}</span>
+        {{ form.color.errors }}
+        {% render_field form.color class+="form-control" %}
         <button type="submit" name="submit" class="btn btn-light">Process</button>
       </form>
     </div>
     <br><br>
     {% if whites %}
     <p>whites: {{whites}}, blacks: {{blacks}}, colored: {{colored}}</p>
+    <img src="{{img_orig}}" height="280">
+    <img src="{{img_masked}}" height="280">
+    <br><br>
+    <p>*Any popular image format is allowed. <span style="font-weight:bold">Only exact RGB color match is detected if you specify precision=100.</span> There are 24 bits used to specify a web color within the sRGB gamut, and 16,777,216 colors that may be so specified. If you’re creating image with Gimp or Paint use PNG because it’s lossless.</p>
     {% endif %}
   </div>
   <footer class="footer">
