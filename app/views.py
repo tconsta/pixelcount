@@ -15,6 +15,7 @@ def index(request):
             context = {'img_orig': img_to_datauri(img_orig_b),
                        'img_masked': img_to_datauri(img_masked_b),
                        'precision': precision,
+                       'color': color,
                        'form': form}
             context.update(counts)
             
