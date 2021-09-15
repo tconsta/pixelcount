@@ -9,6 +9,11 @@ class ImgUploadForm(forms.Form):
     color = forms.CharField(label='Color in hex',
                             required=False, max_length=RGB_LENGTH,
                             widget=forms.TextInput(attrs={'placeholder': 'ex: F2E5A0 or #F2E5A0'}))
+    precision = forms.IntegerField(label='Precision:',
+                                   widget=forms.NumberInput(attrs={'type': 'range',
+                                                                   'step': '1',
+                                                                   'min': '0',
+                                                                   'max': '100'}))
 
     def clean_color(self):
         hexcolor = self.cleaned_data['color'].strip()

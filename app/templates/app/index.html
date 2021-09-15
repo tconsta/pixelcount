@@ -25,7 +25,7 @@
     <h3>Let's count pixels</h3>
     <div class="text-center inputform">
       {% load widget_tweaks %}
-      <form method="post" enctype="multipart/form-data">
+      <form method="post" enctype="multipart/form-data" oninput="precisionvalue.value = precision.valueAsNumber">
         {% csrf_token %}
         {{ form.non_field_errors }}
         {% render_field form.image.label %}
@@ -34,6 +34,13 @@
         <span class="">{% render_field form.color.label %}</span>
         {{ form.color.errors }}
         {% render_field form.color class+="form-control" %}
+        <div class="form-group">
+          <span class="">{% render_field form.precision.label %}
+            <output name="precisionvalue" for="precision" >50</output>
+          </span>
+          {{ form.precision.errors }}
+          {% render_field form.precision class+="form-control-range" %}
+        </div>
         <button type="submit" name="submit" class="btn btn-light">Process</button>
       </form>
     </div>
