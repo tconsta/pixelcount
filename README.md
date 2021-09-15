@@ -7,6 +7,8 @@ Image processing is performed in a horribly hackish manner without saving to the
 
 Extra features: target color masking and color comparison precision!
 
+![Image](https://github.com/tconsta/pixelcount/blob/master/screenshot.jpg?raw=true)
+
 ## Run with docker:
 ```
 git clone https://github.com/tconsta/pixelcount.git && \
