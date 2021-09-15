@@ -14,8 +14,10 @@ def index(request):
             form = ImgUploadForm()
             context = {'img_orig': img_to_datauri(img_orig_b),
                        'img_masked': img_to_datauri(img_masked_b),
+                       'precision': precision,
                        'form': form}
             context.update(counts)
+            
             return render(request, 'app/index.html', context)
     else:
         form = ImgUploadForm()
