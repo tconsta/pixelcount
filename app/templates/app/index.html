@@ -22,7 +22,26 @@
 </head>
 <body class="text-center">
   <div class="container">
-    <h1>Let's count pixels</h1>
+    <h3>Let's count pixels</h3>
+    <div class="text-center inputform">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.image }}
+        {{ form.color }}
+        <button type="submit" name="submit" class="btn btn-light">Process</button>
+      </form>
+    </div>
+    <br><br>
+    {% if whites %}
+    <p>whites: {{whites}}, blacks: {{blacks}}, colored: {{colored}}</p>
+    {% endif %}
   </div>
+  <footer class="footer">
+    <div class="container">
+        <div class="text-center madeby">
+            <span>Made by <a href="https://github.com/tconsta">tconsta</a>, 2021</span>
+        </div>
+    </div>
+  </footer>
 </body>
 </html>

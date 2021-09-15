@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.shortcuts import render
+from .forms import ImgUploadForm
 
 
 def index(request):
-    return render(request, 'app/index.html')
+    form = ImgUploadForm()
+    context = {'form': form}
+    return render(request, 'app/index.html', context)
